@@ -35,15 +35,7 @@
                         :key="task.id"
                         :class="{'list-group-item-secondary': !is_valid_task(idx)}"
                 >
-                    <div class="form-row">
-                        <div class="handle col-sm-1 col-form-label text-center" style="cursor: move"
-                             :class="{'text-danger': dates[idx].weekday > 5}">
-                            [[ dates[idx].toFormat('dd/MM') ]]
-                        </div>
-                        <input type="text" class="form-control col-sm-5" placeholder="Name" v-model="task.name"/>
-                        <input type="url" class="form-control col-sm-5" placeholder="URL" v-model="task.url"/>
-                        <button type="button" class="close col-sm-1" @click="clean_or_remove_at(idx)">&times;</button>
-                    </div>
+                    <task-form-row :date="dates[idx]" :task="task" @close-button-clicked="clean_or_remove_at(idx)"/>
                 </li>
             </draggable>
             <div class="row my-3">
@@ -75,9 +67,27 @@
             </ul>
         </div>
     </script>
+    <script type="text/x-template" id="row-template">
+        <div class="form-row">
+            <div class="handle col-sm-1 col-form-label text-center" style="cursor: move"
+                 :class="{'text-danger': date.weekday > 5}">
+                [[ date.toFormat('dd/MM') ]]
+            </div>
+            <input type="text" class="form-control col-sm-5" placeholder="Name" v-model="task.name"/>
+            <input type="url" class="form-control col-sm-5" placeholder="URL" v-model="task.url"/>
+            <button type="button" class="close col-sm-1" @click="$emit('close-button-clicked')">&times;</button>
+        </div>
+    </script>
     <script src="{% static "coding_tasks/leetcode_tasks.js" %}"></script>
     <script>
         "use strict";
+
+        Vue.component('task-form-row', {
+            props: ['date', 'task'],
+            delimiters: ['[[', ']]'],
+            template: '#row-template',
+        });
+
         const app = new Vue({
             delimiters: ['[[', ']]'],
             el: '#app',
