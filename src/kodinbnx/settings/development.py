@@ -17,5 +17,5 @@ def show_django_debug_toolbar_in_debug_mode(request):
 
 
 DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": "kodingbnx.settings.development.show_django_debug_toolbar_in_debug_mode",
+    "SHOW_TOOLBAR_CALLBACK": "kodinbnx.settings.development.show_django_debug_toolbar_in_debug_mode",
 }

@@ -35,7 +35,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "kodingbnx.urls"
+ROOT_URLCONF = "kodinbnx.urls"
 
 TEMPLATES = [
     {
@@ -53,7 +53,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "kodingbnx.wsgi.application"
+WSGI_APPLICATION = "kodinbnx.wsgi.application"
 
 DATABASES = {
     "default": {
