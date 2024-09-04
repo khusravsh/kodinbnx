@@ -162,12 +162,27 @@
                     this.suggestions.splice(idx, 1);
                 },
                 guess_name(idx) {
-                    const url = this.tasks[idx].url;
+                    var url = this.tasks[idx].url;
                     if (this.tasks[idx].name === '' && url.startsWith('https://leetcode.com/problems/')) {
+                        url = this.check(url)
                         const name = TASK_URLS_TO_NAMES[url];
-                        if (name) this.tasks[idx].name = name;
+                        if (name) {
+                            this.tasks[idx].name = name;
+                            this.tasks[idx].url = url;
+                        }
                     }
                 },
+                check(url) {
+                    if (url.endsWith("/description/") || url.endsWith("/description")) {
+                      url = this.trimUrl(url);
+                    }
+                    return url;
+                },
+                trimUrl(url) {
+                    var i = url.indexOf("/description")
+                    return url.slice(0, i+1);
+                }
+
             },
         });
     </script>

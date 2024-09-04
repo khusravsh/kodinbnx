@@ -21,6 +21,7 @@ urlpatterns = [
         auth_views.LoginView.as_view(
             template_name="coding_tasks/login.html",
             extra_context={"enable_sign_up": lambda: config.ENABLE_SIGN_UP},
+            redirect_authenticated_user=True
         ),
         name="login",
     ),

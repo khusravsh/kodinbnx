@@ -14,7 +14,7 @@ CHAT_ID = int(os.environ["TELEGRAM_CHAT_ID"])
 URL_BASE = f"https://api.telegram.org/bot{BOT_API_KEY}/"
 
 SITE_URL = "https://kodinbnx.pythonanywhere.com"
-STAFF_USERS = "@grambbledook"
+STAFF_USERS = ""
 NO_TASK_FOR_TODAY_MESSAGE = f"{STAFF_USERS} No task for today :("
 NO_TASK_FOR_TOMORROW_MESSAGE = f"{STAFF_USERS} No task for tomorrow"
 
@@ -33,6 +33,7 @@ class TelegramApi:
 
     def send_message(self, text):
         data = {"chat_id": CHAT_ID, "text": text, "disable_web_page_preview": True}
+        print(data)
         return self._call("sendMessage", data)
 
     def pin_message(self, message_id):

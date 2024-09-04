@@ -24,11 +24,11 @@ def cronjob_api_call(f):
 def morning_send_task():
     with TelegramBot() as bot:
         bot.send_and_pin_task_for_today()
-        bot.notify_if_no_tasks_for_tomorrow()
+        # bot.notify_if_no_tasks_for_tomorrow()
 
 
 @cronjob_api_call
 def evening_send_solutions():
     with TelegramBot() as bot:
         bot.send_solutions_for_today()
-        bot.notify_if_no_tasks_for_tomorrow()
+        # bot.notify_if_no_tasks_for_tomorrow()
