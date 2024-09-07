@@ -49,6 +49,7 @@
                         <input type="url" class="form-control col-sm-5" placeholder="URL" v-model="task.url"
                                @input="guess_name(idx)"/>
                         <button type="button" class="close col-sm-1" @click="clean_or_remove_at(idx)">&times;</button>
+                        <div class='text-warning' v-if="task.seen">Last seen: [[task.seen.toFormat('EEE dd/MM')]]</div>
                     </div>
                 </li>
             </draggable>
@@ -170,6 +171,8 @@
                             this.tasks[idx].name = name;
                             this.tasks[idx].url = url;
                         }
+                        const seen = this.task_seen_by_url[url];
+                        this.tasks[idx].seen = seen ? luxon.DateTime.fromISO(seen): undefined;
                     }
                 },
                 check(url) {
