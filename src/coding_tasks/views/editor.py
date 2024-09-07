@@ -17,11 +17,9 @@ from telegram_bot.telegram_api import TelegramBot
 
 DATE_FORMAT = "%Y-%m-%d"
 
-
 class StaffuserRequiredMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff
-
 
 class EditTasksView(StaffuserRequiredMixin, TemplateView):
     template_name = "coding_tasks/edit_tasks.html"
@@ -54,11 +52,18 @@ class EditTasksView(StaffuserRequiredMixin, TemplateView):
             Suggestion.objects.values("id", "url").order_by("-submitted_at")
         )
 
+        tasks_lookback_date = task_schedule.today() - datetime.timedelta(days=90)
+        task_seen_by_url = {
+            task.url: task.date
+            for task in (Task.objects.filter(date__gte=tasks_lookback_date).filter(date__lte=start_date).order_by('date'))
+        }
+
         editor_data["next_id"] = len(tasks)
         editor_data["tasks"] = tasks
         editor_data["csrf_token"] = get_csrf_token(self.request)
         editor_data["suggestions"] = suggestions
         editor_data["deleted_suggestions"] = []
+        editor_data["task_seen_by_url"] = task_seen_by_url
 
         context["editor_data"] = editor_data
         context["debug"] = settings.DEBUG
